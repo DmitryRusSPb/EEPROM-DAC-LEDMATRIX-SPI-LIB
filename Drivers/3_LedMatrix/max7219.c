@@ -19,6 +19,7 @@ void sendData(uint16_t data)
 	osSemaphoreWait(chipSelectSemHandle, osWaitForever);
 	// reset chipselect line, in oder to chose MAX729
 	HAL_GPIO_WritePin(PORT_NCC, PIN_NCC, GPIO_PIN_RESET);
+	HAL_SPI_Transmit(&hspi3, (uint8_t*)&data + 1, 1, 500);
 	HAL_SPI_Transmit(&hspi3, (uint8_t*)&data, 1, 500);
 	// set chipselect line
 	HAL_GPIO_WritePin(PORT_NCC, PIN_NCC, GPIO_PIN_SET);
